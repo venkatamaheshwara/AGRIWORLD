@@ -59,8 +59,10 @@ disease_classes = ['Apple___Apple_scab',
 
 disease_model_path = 'models/plant_disease_model.pth'
 disease_model = ResNet9(3, len(disease_classes))
+# disease_model.load_state_dict(torch.load(
+#     disease_model_path, map_location=torch.device('cpu')))
 disease_model.load_state_dict(torch.load(
-    disease_model_path, map_location=torch.device('cpu')))
+    disease_model_path, map_location=torch.device('cuda')))
 disease_model.eval()
 
 
@@ -121,7 +123,7 @@ def predict_image(img, model=disease_model):
         
 
     #resize the image    
-    image = image.resize((256, 256))
+    #image = image.resize((256, 256))
     #image.save("static/resized_image.jpg")
     #print(image)
     img_t = transform(image)
@@ -289,4 +291,4 @@ def disease_prediction():
 
 if __name__ == '__main__':
     #app.run(debug=True)
-    app.run(host='0.0.0.0', port=8000, debug=True,**{"worker_timeout": 120})
+    app.run(host='0.0.0.0', port=8000, debug=False,**{"worker_timeout": 120})
