@@ -7,3 +7,4 @@ Pillow
 gunicorn == 20.0.4
 googletrans
 torch
+torchvision
