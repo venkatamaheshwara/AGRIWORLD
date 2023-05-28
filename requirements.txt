@@ -8,4 +8,3 @@ gunicorn == 20.0.4
 googletrans == 4.0.0rc1
 torch
 torchvision
-python==3.9.13
