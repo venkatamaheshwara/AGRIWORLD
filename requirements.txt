@@ -5,6 +5,6 @@ scikit-learn
 requests
 Pillow
 gunicorn == 20.0.4
-googletrans ==4.0.0
+googletrans == 4.0.0
 torch
 torchvision
