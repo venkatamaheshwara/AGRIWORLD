@@ -62,7 +62,7 @@ disease_model = ResNet9(3, len(disease_classes))
 disease_model.load_state_dict(torch.load(
     disease_model_path, map_location=torch.device('cpu')))
 disease_model.eval()
-print(disease_model.eval())
+#print(disease_model.eval())
 
 
 # Loading crop recommendation model
@@ -107,6 +107,7 @@ def predict_image(img, model=disease_model):
     :params: image
     :return: prediction (string)
     """
+    print("started predict_image")
     transform = transforms.Compose([
         transforms.Resize(256),
         transforms.ToTensor(),
@@ -129,11 +130,14 @@ def predict_image(img, model=disease_model):
     img_u = torch.unsqueeze(img_t, 0)
 
     # Get predictions from model
+    print("started model function")
     yb = model(img_u)
     # Pick index with highest probability
+    print("end of model function",yb)
     _, preds = torch.max(yb, dim=1)
     prediction = disease_classes[preds[0].item()]
     # Retrieve the class label
+    print("end of prediction function",prediction)
     return prediction
 
 
@@ -277,7 +281,7 @@ def disease_prediction():
             return render_template('disease.html', title=title)
         try:
             img = file.read()
-            print("image read",img)
+            
             prediction = predict_image(img)
 
             prediction = Markup(str(disease_dic[prediction]))
