@@ -62,6 +62,7 @@ disease_model = ResNet9(3, len(disease_classes))
 disease_model.load_state_dict(torch.load(
     disease_model_path, map_location=torch.device('cpu')))
 disease_model.eval()
+print(disease_model.eval())
 
 
 # Loading crop recommendation model
@@ -276,7 +277,7 @@ def disease_prediction():
             return render_template('disease.html', title=title)
         try:
             img = file.read()
-
+            print("image read",img)
             prediction = predict_image(img)
 
             prediction = Markup(str(disease_dic[prediction]))
@@ -288,5 +289,5 @@ def disease_prediction():
 
 
 if __name__ == '__main__':
-    #app.run(debug=True)
-    app.run(host='0.0.0.0', port=8000, debug=False,**{"worker_timeout": 1000})
+    app.run(debug=True)
+    #app.run(host='0.0.0.0', port=8000, debug=False,**{"worker_timeout": 1000})
